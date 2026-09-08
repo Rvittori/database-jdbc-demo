@@ -1,5 +1,6 @@
 package com.rvittori.database_postgresql_jdbc.dao.impl;
 
+import com.rvittori.database_postgresql_jdbc.TestDataUtil;
 import com.rvittori.database_postgresql_jdbc.domain.Author;
 import com.rvittori.database_postgresql_jdbc.impl.AuthorDaoImpl;
 import org.junit.jupiter.api.Test;
@@ -23,11 +24,7 @@ public class AuthorDaoImplTests {
 
         @Test
         public void testThatCreateAuthorGeneratesTheCorrectSql() {
-            Author author = Author.builder()
-                    .id(1L)
-                    .name("Jane Doe")
-                    .age(50)
-                    .build();
+            Author author = TestDataUtil.createTestAuthor();
 
             underTest.create(author);
 

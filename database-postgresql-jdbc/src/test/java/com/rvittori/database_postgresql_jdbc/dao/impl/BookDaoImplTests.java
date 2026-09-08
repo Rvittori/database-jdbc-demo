@@ -1,5 +1,6 @@
 package com.rvittori.database_postgresql_jdbc.dao.impl;
 
+import com.rvittori.database_postgresql_jdbc.TestDataUtil;
 import com.rvittori.database_postgresql_jdbc.domain.Book;
 import com.rvittori.database_postgresql_jdbc.impl.BookDaoImpl;
 import org.junit.jupiter.api.Test;
@@ -25,11 +26,7 @@ public class BookDaoImplTests {
 
     @Test
     public void testCreateBookGeneratesCorrectSql() {
-        Book book = Book.builder()
-                .isbn("978-1-2345-6789-0")
-                .title("The Shadow in the Attic")
-                .authorId(1L)
-                .build();
+        Book book = TestDataUtil.createTestBook();
 
         underTest.create(book);
 
