@@ -16,23 +16,23 @@ import static org.mockito.Mockito.verify;
 @ExtendWith(MockitoExtension.class)
 public class AuthorDaoImplTests {
 
-        @Mock
-        private JdbcTemplate jdbcTemplate;
+    @Mock
+    private JdbcTemplate jdbcTemplate;
 
-        @InjectMocks
-        private AuthorDaoImpl underTest;
+    @InjectMocks
+    private AuthorDaoImpl underTest;
 
-        @Test
-        public void testThatCreateAuthorGeneratesTheCorrectSql() {
-            Author author = TestDataUtil.createTestAuthor();
+    @Test
+    public void testThatCreateAuthorGeneratesTheCorrectSql() {
+        Author author = TestDataUtil.createTestAuthor();
 
-            underTest.create(author);
+        underTest.create(author);
 
-            verify(jdbcTemplate).update(
-                    eq ("INSERT INTO authors (id, name, age) VALUES (?, ?, ?)"),
-                    eq(1L), eq("Jane Doe"), eq(50)
-                    );
-        }
+        verify(jdbcTemplate).update(
+                eq ("INSERT INTO authors (id, name, age) VALUES (?, ?, ?)"),
+                eq(1L), eq("Jane Doe"), eq(50)
+        );
+    }
 
     @Test
     public void testThatFindOneGeneratesTheCorrectSql() {
@@ -44,5 +44,13 @@ public class AuthorDaoImplTests {
         );
     }
 
+    @Test
+    public void testThatFindManyGeneratesTheCorrectSql() {
+        underTest.find();
+        verify(jdbcTemplate).query
+                (eq("SELECT id, name, age FROM authors"),
+                ArgumentMatchers.<AuthorDaoImpl.AuthorRowMapper>any()
+        );
+    }
 }
 
